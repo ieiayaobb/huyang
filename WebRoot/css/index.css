@@ -1,0 +1,10 @@
+body{width:800px;}
+.hd{}
+.bd{}
+.side{width:200px;height:600px;}
+.main{width:600px;}
+.ft{}
+.dialog fieldset{width:200px;height:100px;}
+.dialog select{width:100px;}
+.dialog .label{}
+.dialog .value{display:inline;}
