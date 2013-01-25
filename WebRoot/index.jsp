@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,14 +13,17 @@
 	<script charset="utf-8" src="plugin/kindeditor-4.1.4/lang/zh_CN.js"></script>-->
 	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="plugin/CLEditor1_3_0/jquery.cleditor.js"></script>
+	<script type="text/javascript" src="plugin/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.js"></script>
 	<link rel="stylesheet" href="plugin/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="plugin/CLEditor1_3_0/jquery.cleditor.css" />
+	<link rel="stylesheet" type="text/css" href="plugin/jquery-ui-1.10.0.custom/css/ui-lightness/jquery-ui-1.10.0.custom.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
 	<script type="text/javascript" src="plugin/zTree/js/jquery.ztree.core-3.5.js"></script>
 	<script>
 		$(document).ready(function(){
 	        $("#input").cleditor({
-	          width:        500, // width not including margins, borders or padding
-	          height:       250, // height not including margins, borders or padding
+	          width:        600, // width not including margins, borders or padding
+	          height:       600, // height not including margins, borders or padding
 	          controls:     // controls to add to the toolbar
 	                        "bold italic underline strikethrough subscript superscript | font size " +
 	                        "style | color highlight removeformat | bullets numbering | outdent " +
@@ -49,8 +52,9 @@
 	          docCSSFile:   // CSS file used to style the document contained within the editor
 	                        "", 
 	          bodyStyle:    // style to assign to document body contained within the editor
-	                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
+	                        "font:10pt Arial,Verdana; cursor:text"
 	        });
+	        
 			var setting = {
 				callback : {
 					onMouseDown : function(event, treeId, treeNode) {
@@ -59,18 +63,22 @@
 					}
 				}
 			};
-			var zNodes =[
-				
+			var nodes = [
+				{name: "父节点1", children: [
+					{name: "子节点1"},
+					{name: "子节点2"}
+				]}
 			];
-			window.zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			window.zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
 			
-			$.ajax({
+			/*$.ajax({
 				url : "http://ieiayaobb.vicp.net:8088/GetPictureWithData",
 				method : "post",
 				success : function(data){
 					console.log(data)
 				}
-			});
+			});*/
+			$( "#dialog" ).dialog({ autoOpen: false });
 		});
 	</script>
   </head>
@@ -84,8 +92,69 @@
 	  	<div class="main">
 	    	<textarea id="input" name="input"></textarea>
 	    </div>
+	    <div class="extra"></div>
     </div>
     <div class="ft"></div>
+	    <div id="dialog" title="Dialog Title">
+	    <div>
+			<fieldset>
+				<legend>功能</legend>
+				<div class="kv">
+					<span class="label">图形：</span>
+					<div class="value">
+						<select>
+							<option>大坝张力图</option>
+							<option>水位图</option>
+							<option>地震响应图	</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>属性</legend>
+				<div class="kv">
+					<span class="label">年：</span>
+					<div class="value">
+						<select>
+							<option>2010</option>
+							<option>2011</option>
+							<option>2012</option>
+						</select>
+					</div>
+				</div>
+				<div class="kv">
+					<span class="label">月：</span>
+					<div class="value">
+						<select>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>10</option>
+							<option>11</option>
+							<option>12</option>
+						</select>
+					</div>
+				</div>
+				<div class="kv">
+					<span class="label">测点:</span>
+					<div class="value">
+						<select>
+							<option>测点一</option>
+							<option>测点二</option>
+							<option>测点三</option>
+							<option>测点四</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+	    </div>
+    </div>
   </body>
 </html>
 

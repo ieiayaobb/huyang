@@ -1,9 +1,10 @@
 body{width:800px;}
-.hd{}
-.bd{}
-.side{width:200px;height:600px;}
-.main{width:600px;}
-.ft{}
+.hd{border:1px solid #000;height:200px;width:1000px;margin-bottom:10px;}
+.bd{height:600px;width:1000px;float:left;}
+.side{width:200px;height:600px;float:left;}
+.extra{width:200px;height:600px;float:left;}
+.main{width:600px;float:left;}
+.ft{border:1px solid #000;height:200px;width:1000px;float:left;margin-top:10px;}
 .dialog fieldset{width:200px;height:100px;}
 .dialog select{width:100px;}
 .dialog .label{}

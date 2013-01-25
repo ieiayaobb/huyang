@@ -350,14 +350,19 @@
 
   // buttonClick - click event handler for toolbar buttons
   function buttonClick(e) {
-
+	  
     var editor = this,
         buttonDiv = e.target,
         buttonName = $.data(buttonDiv, BUTTON_NAME),
         button = buttons[buttonName],
         popupName = button.popupName,
         popup = popups[popupName];
-
+    /*
+     * add by ynshen
+     * 
+     * */
+    console.log($.data(buttonDiv, BUTTON_NAME));
+	$( "#dialog" ).dialog( "open" );
     // Check if disabled
     if (editor.disabled || $(buttonDiv).attr(DISABLED) == DISABLED)
       return;
@@ -875,7 +880,13 @@
 
     // Enable the toolbar buttons as the user types or clicks
     $doc.click(hidePopups)
-      .bind("keyup mouseup", function() {
+      .bind("keyup mouseup", function(e) {
+    	  /*
+    	   * add by ynshen
+    	   * 
+    	   */
+    	  console.log(e.keyCode)
+    	  console.log(getSelection(editor))
         refreshButtons(editor);
       });
 
