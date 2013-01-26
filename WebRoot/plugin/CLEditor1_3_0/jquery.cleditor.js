@@ -299,7 +299,10 @@
 
     // Create the iframe and resize the controls
     refresh(editor);
-
+	console.log($("h1"))
+	$("h1").live("blur",function(e){
+				console.log($(this).val())
+			})
   };
 
   //===============
@@ -350,7 +353,6 @@
 
   // buttonClick - click event handler for toolbar buttons
   function buttonClick(e) {
-	  
     var editor = this,
         buttonDiv = e.target,
         buttonName = $.data(buttonDiv, BUTTON_NAME),
@@ -361,8 +363,10 @@
      * add by ynshen
      * 
      * */
-    console.log($.data(buttonDiv, BUTTON_NAME));
-	$( "#dialog" ).dialog( "open" );
+    console.log("buttonName:" + buttonName);
+	if(buttonName == "image"){
+		$( "#dialog" ).dialog( "open" );
+	}
     // Check if disabled
     if (editor.disabled || $(buttonDiv).attr(DISABLED) == DISABLED)
       return;
@@ -885,8 +889,9 @@
     	   * add by ynshen
     	   * 
     	   */
-    	  console.log(e.keyCode)
-    	  console.log(getSelection(editor))
+    	  //console.log("e.keyCode:" + e.keyCode)
+    	  //console.log("getSelection:" + getSelection(editor))
+		console.log($("h1"))
         refreshButtons(editor);
       });
 
