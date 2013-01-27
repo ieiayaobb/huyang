@@ -28,7 +28,7 @@
                     "bold italic underline strikethrough subscript superscript | font size " +
                     "style | color highlight removeformat | bullets numbering | outdent " +
                     "indent | alignleft center alignright justify | undo redo | " +
-                    "rule image link unlink | cut copy paste pastetext | print source",
+                    "rule image table link unlink | cut copy paste pastetext | print source",
       colors:       // colors in the color popup
                     "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
                     "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
@@ -93,7 +93,8 @@
       "paste,,|" +
       "pastetext,Paste as Text,inserthtml,|" +
       "print,,|" +
-      "source,Show Source"
+      "source,Show Source,|" + 
+      "table,,"
     },
 
     // imagesPath - returns the path to the images folder
@@ -248,7 +249,7 @@
         
         // Get the button definition
         var button = buttons[buttonName];
-
+        console.log(button)
         // Add a new button to the group
         var $buttonDiv = $(DIV_TAG)
           .data(BUTTON_NAME, button.name)
@@ -299,10 +300,7 @@
 
     // Create the iframe and resize the controls
     refresh(editor);
-	console.log($("h1"))
-	$("h1").live("blur",function(e){
-				console.log($(this).val())
-			})
+
   };
 
   //===============
@@ -353,6 +351,7 @@
 
   // buttonClick - click event handler for toolbar buttons
   function buttonClick(e) {
+	  
     var editor = this,
         buttonDiv = e.target,
         buttonName = $.data(buttonDiv, BUTTON_NAME),
@@ -363,10 +362,8 @@
      * add by ynshen
      * 
      * */
-    console.log("buttonName:" + buttonName);
-	if(buttonName == "image"){
-		$( "#dialog" ).dialog( "open" );
-	}
+    console.log($.data(buttonDiv, BUTTON_NAME));
+	$( "#dialog" ).dialog( "open" );
     // Check if disabled
     if (editor.disabled || $(buttonDiv).attr(DISABLED) == DISABLED)
       return;
@@ -889,9 +886,8 @@
     	   * add by ynshen
     	   * 
     	   */
-    	  //console.log("e.keyCode:" + e.keyCode)
-    	  //console.log("getSelection:" + getSelection(editor))
-		console.log($("h1"))
+    	  console.log(e.keyCode)
+    	  console.log(getSelection(editor))
         refreshButtons(editor);
       });
 

@@ -16,19 +16,19 @@
 	<script type="text/javascript" src="plugin/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.js"></script>
 	<link rel="stylesheet" href="plugin/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="plugin/CLEditor1_3_0/jquery.cleditor.css" />
-	<link rel="stylesheet" type="text/css" href="plugin/jquery-ui-1.10.0.custom/css/ui-lightness/jquery-ui-1.10.0.custom.css" />
+	<link rel="stylesheet" type="text/css" href="plugin/jquery-ui-1.10.0.custom/css/smoothness/jquery-ui-1.10.0.custom.css" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 	<script type="text/javascript" src="plugin/zTree/js/jquery.ztree.core-3.5.js"></script>
 	<script>
 		$(document).ready(function(){
 	        $("#input").cleditor({
-	          width:        600, // width not including margins, borders or padding
-	          height:       600, // height not including margins, borders or padding
+	          width:        596, // width not including margins, borders or padding
+	          height:       560, // height not including margins, borders or padding
 	          controls:     // controls to add to the toolbar
 	                        "bold italic underline strikethrough subscript superscript | font size " +
 	                        "style | color highlight removeformat | bullets numbering | outdent " +
 	                        "indent | alignleft center alignright justify | undo redo | " +
-	                        "rule image link unlink | cut copy paste pastetext | print source",
+	                        "rule image table link unlink | cut copy paste pastetext | print source",
 	          colors:       // colors in the color popup
 	                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
 	                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
@@ -71,28 +71,65 @@
 			];
 			window.zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
 			
-			/*$.ajax({
-				url : "http://ieiayaobb.vicp.net:8088/GetPictureWithData",
-				method : "post",
+			var requestXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+			"<GetPictureWithDataReq>"+
+				"<type>A</type>"+
+				"<year>2013</year>"+
+				"<month>01</month>"+
+				"<point>1</point>"+
+			"</GetPictureWithDataReq>";
+			var requestXMLDoc = $.parseXML(requestXML);
+			
+			$.ajax({
+				url : "http://localhost:8088/Server/XML/GetPictureWithData",
+				type : "post",
+				data : requestXML,
 				success : function(data){
 					console.log(data)
 				}
-			});*/
+			});
+			$( "#radio" ).buttonset();
 			$( "#dialog" ).dialog({ autoOpen: false });
+			/*$( "#document" ).button();
+			$( "#system" ).button();
+			$( "#report" ).button();
+			$( "#search" ).button();
+			$( "#compute" ).button();
+			$( "#help" ).button();*/
 		});
 	</script>
   </head>
   
   <body>
-  	<div class="hd"></div>
+  	<div class="hd">
+  		<div class="menu">
+  			<a href="" id="document">文档管理</a>
+  			<a href="" id="system">系统管理</a>
+  			<a href="" id="report">报告编制</a>
+  			<a href="" id="search">查询浏览</a>
+  			<a href="" id="compute">计算工具</a>
+  			<a href="" id="help">联机帮助</a>
+  		</div>
+  		<div class="tab">
+  			<div id="radio">
+			    <input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">封皮制作</label>
+			    <input type="radio" id="radio2" name="radio" /><label for="radio2">目录制作</label>
+			    <input type="radio" id="radio3" name="radio" /><label for="radio3">报告制作</label>
+			</div>
+  		</div>
+  	</div>
   	<div class="bd">
 	  	<div class="side">
+	  		<div class="side-title">菜单栏</div>
 	  		<ul id="treeDemo" class="ztree"></ul>
 	  	</div>
 	  	<div class="main">
+	  		<div class="main-title">报告题目与章节显示</div>
 	    	<textarea id="input" name="input"></textarea>
 	    </div>
-	    <div class="extra"></div>
+	    <div class="extra">
+	    	<div class="extra-title">计算分析工具</div>
+	    </div>
     </div>
     <div class="ft"></div>
 	    <div id="dialog" title="Dialog Title">
