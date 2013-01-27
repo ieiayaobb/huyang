@@ -268,10 +268,10 @@
         // Add the unselectable attribute for ie
         if (ie)
           $buttonDiv.attr(UNSELECTABLE, "on");
-
+		console.log(button.popupName)
         // Create the popup
         if (button.popupName)
-          createPopup(button.popupName, options, button.popupClass,
+			createPopup(button.popupName, options, button.popupClass,
             button.popupContent, button.popupHover);
         
       }
@@ -299,10 +299,6 @@
 
     // Create the iframe and resize the controls
     refresh(editor);
-	console.log($("h1"))
-	$("h1").live("blur",function(e){
-				console.log($(this).val())
-			})
   };
 
   //===============
@@ -533,11 +529,12 @@
         target = target.children[0];
       value = target.innerHTML;
     }
-    else if (buttonName == "style")
+    else if (buttonName == "style"){
+	  console.log(target.tagName)
       value = "<" + target.tagName + ">";
-    else if (buttonName == "color")
+    }else if (buttonName == "color"){
       value = hex(target.style.backgroundColor);
-    else if (buttonName == "highlight") {
+    }else if (buttonName == "highlight") {
       value = hex(target.style.backgroundColor);
       if (ie) command = 'backcolor';
       else useCSS = true;
@@ -891,7 +888,8 @@
     	   */
     	  //console.log("e.keyCode:" + e.keyCode)
     	  //console.log("getSelection:" + getSelection(editor))
-		console.log($("h1"))
+		console.log(getSelection(editor))
+		console.log(getSelection(editor).focusNode)
         refreshButtons(editor);
       });
 
