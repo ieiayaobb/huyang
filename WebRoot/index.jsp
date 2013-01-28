@@ -9,26 +9,38 @@
   <head>
     <title>demo</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<!--<script charset="utf-8" src="plugin/kindeditor-4.1.4/kindeditor.js"></script>
-	<script charset="utf-8" src="plugin/kindeditor-4.1.4/lang/zh_CN.js"></script>-->
+	<script charset="utf-8" src="plugin/kindeditor-4.1.4/kindeditor.js"></script>
+	<script charset="utf-8" src="plugin/kindeditor-4.1.4/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="plugin/CLEditor1_3_0/jquery.cleditor.js"></script>
+	<!--<script type="text/javascript" src="plugin/CLEditor1_3_0/jquery.cleditor.js"></script>-->
 	<script type="text/javascript" src="plugin/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.js"></script>
 	<link rel="stylesheet" href="plugin/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="plugin/CLEditor1_3_0/jquery.cleditor.css" />
-	<link rel="stylesheet" type="text/css" href="plugin/jquery-ui-1.10.0.custom/css/ui-lightness/jquery-ui-1.10.0.custom.css" />
+	<link rel="stylesheet" type="text/css" href="plugin/jquery-ui-1.10.0.custom/css/smoothness/jquery-ui-1.10.0.custom.css" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 	<script type="text/javascript" src="plugin/zTree/js/jquery.ztree.core-3.5.js"></script>
 	<script>
 		$(document).ready(function(){
-	        $("#input").cleditor({
-	          width:        600, // width not including margins, borders or padding
-	          height:       600, // height not including margins, borders or padding
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					resizeType : 0,
+					allowPreviewEmoticons : false,
+					allowImageUpload : false,
+					items : [
+						'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+				});
+			});
+	        /*$("#input").cleditor({
+	          width:        596, // width not including margins, borders or padding
+	          height:       560, // height not including margins, borders or padding
 	          controls:     // controls to add to the toolbar
 	                        "bold italic underline strikethrough subscript superscript | font size " +
 	                        "style | color highlight removeformat | bullets numbering | outdent " +
 	                        "indent | alignleft center alignright justify | undo redo | " +
-	                        "rule image link unlink | cut copy paste pastetext | print source",
+	                        "rule image table link unlink | cut copy paste pastetext | print source",
 	          colors:       // colors in the color popup
 	                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
 	                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
@@ -53,7 +65,7 @@
 	                        "", 
 	          bodyStyle:    // style to assign to document body contained within the editor
 	                        "font:10pt Arial,Verdana; cursor:text"
-	        });
+	        });*/
 	        
 			var setting = {
 				callback : {
@@ -64,40 +76,65 @@
 				}
 			};
 			var nodes = [
-				{name: "父节点1", children: [
-					{name: "子节点1"},
-					{name: "子节点2"}
-				]}
 			];
 			window.zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, nodes);
 			
-			/*$.ajax({
-				url : "http://ieiayaobb.vicp.net:8088/GetPictureWithData",
-				method : "post",
-				success : function(data){
-					console.log(data)
-				}
-			});*/
+			var requestXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+			"<GetPictureWithDataReq>"+
+				"<type>A</type>"+
+				"<year>2013</year>"+
+				"<month>01</month>"+
+				"<point>1</point>"+
+			"</GetPictureWithDataReq>";
+			
+			$( "#radio" ).buttonset();
 			$( "#dialog" ).dialog({ autoOpen: false });
+			/*$( "#document" ).button();
+			$( "#system" ).button();
+			$( "#report" ).button();
+			$( "#search" ).button();
+			$( "#compute" ).button();
+			$( "#help" ).button();*/
 		});
 	</script>
   </head>
   
   <body>
-  	<div class="hd"></div>
+  	<div class="hd">
+  		<div class="menu">
+  			<a href="" id="document">文档管理</a>
+  			<a href="" id="system">系统管理</a>
+  			<a href="" id="report">报告编制</a>
+  			<a href="" id="search">查询浏览</a>
+  			<a href="" id="compute">计算工具</a>
+  			<a href="" id="help">联机帮助</a>
+  		</div>
+  		<div class="tab">
+  			<div id="radio">
+			    <input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">封皮制作</label>
+			    <input type="radio" id="radio2" name="radio" /><label for="radio2">目录制作</label>
+			    <input type="radio" id="radio3" name="radio" /><label for="radio3">报告制作</label>
+			</div>
+  		</div>
+  	</div>
   	<div class="bd">
 	  	<div class="side">
+	  		<div class="side-title">菜单栏</div>
 	  		<ul id="treeDemo" class="ztree"></ul>
 	  	</div>
 	  	<div class="main">
-	    	<textarea id="input" name="input"></textarea>
+	  		<div class="main-title">报告题目与章节显示</div>
+			<textarea name="content" style="width:600px;height:560px;visibility:hidden;"></textarea>
+	    	<!--<textarea id="input" name="input"></textarea>-->
 	    </div>
-	    <div class="extra"></div>
+	    <div class="extra">
+	    	<div class="extra-title">计算分析工具</div>
+	    </div>
     </div>
     <div class="ft"></div>
 	    <div id="dialog" title="Dialog Title">
 	    <div>
-			<fieldset>
+			<fieldset id="function">
 				<legend>功能</legend>
 				<div class="kv">
 					<span class="label">图形：</span>
@@ -110,7 +147,7 @@
 					</div>
 				</div>
 			</fieldset>
-			<fieldset>
+			<fieldset id="date">
 				<legend>属性</legend>
 				<div class="kv">
 					<span class="label">年：</span>

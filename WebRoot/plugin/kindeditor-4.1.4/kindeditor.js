@@ -3627,8 +3627,8 @@ _extend(KEdit, KWidget, {
 				 */
 				window.originalNode =  window.targetNode;
 				window.targetNode = window.zTreeObj.getNodeByParam("id",self.cmd.selection().sel.focusNode.nodeId);
-				console.log("window.originalNode:::" + window.originalNode)
-				console.log((window.originalNode) && (window.originalNode != window.targetNode) && (window.tagName == "h1"))
+				//console.log("window.originalNode:::" + window.originalNode)
+				//console.log((window.originalNode) && (window.originalNode != window.targetNode) && (window.tagName == "h1"))
 				if((window.originalNode) && (window.originalNode != window.targetNode) && (window.tagName == "h1")){
 					window.originalNode.name = window.currentValue;
 					zTreeObj.updateNode(window.originalNode);

@@ -88,59 +88,91 @@ KindEditor.plugin('image', function(K) {
 		].join('');*/
 		var html = [
 			'<div class="dialog">',
-				'<fieldset>',
+				'<fieldset id="funciton">',
 					'<legend>功能</legend>',
 					'<div class="kv">',
 						'<span class="label">图形：</span>',
 						'<div class="value">',
 							'<select>',
 								'<option>请选择</option>',
-								'<option>大坝张力图</option>',
-								'<option>水位图</option>',
-								'<option>地震响应图</option>',
+								'<option>大坝压力图</option>',
+								'<option>地震数据图</option>',
 							'</select>',
 						'</div>',
 					'</div>',
 				'</fieldset>',
-				'<fieldset style="display:none;">',
+				'<fieldset id="date" style="display:none;">',
 					'<legend>属性</legend>',
-					'<div class="kv">',
-						'<span class="label">年：</span>',
-						'<div class="value">',
-							'<select>',
-								'<option>2010</option>',
-								'<option>2011</option>',
-								'<option>2012</option>',
-							'</select>',
+					'<div class="start">',
+						'<span>起始：</span>',
+						'<div class="kv">',
+							'<span class="label">年：</span>',
+							'<div class="value">',
+								'<select>',
+									'<option>2005</option>',
+									'<option>2006</option>',
+								'</select>',
+							'</div>',
+						'</div>',
+						'<div class="kv">',
+							'<span class="label">月：</span>',
+							'<div class="value">',
+								'<select>',
+									'<option>1</option>',
+									'<option>2</option>',
+									'<option>3</option>',
+									'<option>4</option>',
+									'<option>5</option>',
+									'<option>6</option>',
+									'<option>7</option>',
+									'<option>8</option>',
+									'<option>9</option>',
+									'<option>10</option>',
+									'<option>11</option>',
+									'<option>12</option>',
+								'</select>',
+							'</div>',
 						'</div>',
 					'</div>',
-					'<div class="kv">',
-						'<span class="label">月：</span>',
-						'<div class="value">',
-							'<select>',
-								'<option>1</option>',
-								'<option>2</option>',
-								'<option>3</option>',
-								'<option>4</option>',
-								'<option>5</option>',
-								'<option>6</option>',
-								'<option>7</option>',
-								'<option>8</option>',
-								'<option>9</option>',
-								'<option>10</option>',
-								'<option>11</option>',
-								'<option>12</option>',
-							'</select>',
+					'<div class="end">',
+						'<span>结束：</span>',
+						'<div class="kv">',
+							'<span class="label">年：</span>',
+							'<div class="value">',
+								'<select>',
+									'<option>2005</option>',
+									'<option>2006</option>',
+								'</select>',
+							'</div>',
+						'</div>',
+						'<div class="kv">',
+							'<span class="label">月：</span>',
+							'<div class="value">',
+								'<select>',
+									'<option>1</option>',
+									'<option>2</option>',
+									'<option>3</option>',
+									'<option>4</option>',
+									'<option>5</option>',
+									'<option>6</option>',
+									'<option>7</option>',
+									'<option>8</option>',
+									'<option>9</option>',
+									'<option>10</option>',
+									'<option>11</option>',
+									'<option>12</option>',
+								'</select>',
+							'</div>',
 						'</div>',
 					'</div>',
-					'<div class="kv">',
+					'<div class="kv point">',
 						'<span class="label">测点:</span>',
 						'<div class="value">',
 							'<select>',
-								'<option>测点一</option>',
-								'<option>测点二</option>',
-								'<option>测点三</option>',
-								'<option>测点四</option>',
+								'<option point="1">测点一</option>',
+								//'<option point="2">测点二</option>',
+								//'<option point="3">测点三</option>',
+								//'<option point="4">测点四</option>',
 							'</select>',
 						'</div>',
 					'</div>',
@@ -190,7 +222,67 @@ KindEditor.plugin('image', function(K) {
 						urlBox[0].focus();
 						return;
 					}*/
-					url = "image/0" + Math.round(Math.random() * 5)+ ".jpg"
+					//url = "image/0" + Math.round(Math.random() * 5)+ ".jpg";
+					
+					/*console.log($("#function").find("select").val());
+					console.log();
+					console.log($("#date").find("select:eq(1)").val());
+					console.log($("#date").find("select:eq(2)"));*/
+					
+					var startYear = parseInt($("#date .start").find("select:eq(0)").val(),10);
+					var startMonth = parseInt($("#date .start").find("select:eq(1)").val(),10);
+					var endYear = parseInt($("#date .end").find("select:eq(0)").val(),10);
+					var endMonth = parseInt($("#date .end").find("select:eq(1)").val(),10);
+					/*console.log(startYear)
+					console.log(startMonth)
+					console.log(endYear)
+					console.log(endMonth)*/
+					
+					var type;
+					
+					if(startYear > endYear){
+						alert("起始日期要小于结束日期！");
+					}else if(startYear == endYear && endMonth <= startMonth){
+						alert("起始日期要小于结束日期！");
+					}else if(startYear == "2005" && startMonth == "1"){
+						alert("起始从2005年2月开始");
+					}else{
+						if($("#funciton").find("select").val() == "大坝压力图"){
+							type = "A";
+						}else if($("#funciton").find("select").val() == "地震数据图"){
+							type = "B";
+						}else{
+							throw Error("No Type!");
+						}
+					
+						var requestXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+
+						"<GetPictureWithDataReq>"+
+							"<type>" + type + "</type>"+
+							"<startYear>" + startYear + "</startYear>"+
+							"<startMonth>" + startMonth + "</startMonth>"+
+							"<endYear>" + endYear + "</endYear>"+
+							"<endMonth>" + endMonth + "</endMonth>"+
+							"<point>1</point>"+
+						"</GetPictureWithDataReq>";
+						console.log(requestXML);
+						
+						var url = "";
+						
+						$.ajax({
+							url : "http://localhost:8088/Server/XML/GetPictureWithData",
+							type : "post",
+							data : requestXML,
+							success : function(data){
+								url = $(data).find("GetPictureWithDataResp").find("pictureData").find("url").text();
+								console.log(url);
+								width = "200";
+								height = "150";
+								title = "";
+								align = '';
+								clickFn.call(self, url, title, width, height, 0, align);
+							}
+						});
+					}
 					/*if (!/^\d*$/.test(width)) {
 						alert(self.lang('invalidWidth'));
 						widthBox[0].focus();
@@ -201,11 +293,7 @@ KindEditor.plugin('image', function(K) {
 						heightBox[0].focus();
 						return;
 					}*/
-					width = "200";
-					height = "150";
-					title = "";
-					align = '';
-					clickFn.call(self, url, title, width, height, 0, align);
+					
 				}
 			},
 			beforeRemove : function() {

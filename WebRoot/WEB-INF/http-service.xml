@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<!-- Service for GetPictureWithData -->
+	<service id="GetPictureWithData" class="com.huawei.dams.action.GetPictureWithDataAction">
+		<param ref="alias" name="pictureData" class="com.huawei.dams.vo.PictureData" />
+	</service>
+</services>

@@ -28,7 +28,7 @@
                     "bold italic underline strikethrough subscript superscript | font size " +
                     "style | color highlight removeformat | bullets numbering | outdent " +
                     "indent | alignleft center alignright justify | undo redo | " +
-                    "rule image link unlink | cut copy paste pastetext | print source",
+                    "rule image table link unlink | cut copy paste pastetext | print source",
       colors:       // colors in the color popup
                     "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
                     "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
@@ -93,7 +93,8 @@
       "paste,,|" +
       "pastetext,Paste as Text,inserthtml,|" +
       "print,,|" +
-      "source,Show Source"
+      "source,Show Source,|" + 
+      "table,,"
     },
 
     // imagesPath - returns the path to the images folder
@@ -248,7 +249,7 @@
         
         // Get the button definition
         var button = buttons[buttonName];
-
+        console.log(button)
         // Add a new button to the group
         var $buttonDiv = $(DIV_TAG)
           .data(BUTTON_NAME, button.name)
@@ -268,10 +269,10 @@
         // Add the unselectable attribute for ie
         if (ie)
           $buttonDiv.attr(UNSELECTABLE, "on");
-		console.log(button.popupName)
+
         // Create the popup
         if (button.popupName)
-			createPopup(button.popupName, options, button.popupClass,
+          createPopup(button.popupName, options, button.popupClass,
             button.popupContent, button.popupHover);
         
       }
@@ -299,6 +300,7 @@
 
     // Create the iframe and resize the controls
     refresh(editor);
+
   };
 
   //===============
@@ -349,6 +351,7 @@
 
   // buttonClick - click event handler for toolbar buttons
   function buttonClick(e) {
+	  
     var editor = this,
         buttonDiv = e.target,
         buttonName = $.data(buttonDiv, BUTTON_NAME),
@@ -359,10 +362,8 @@
      * add by ynshen
      * 
      * */
-    console.log("buttonName:" + buttonName);
-	if(buttonName == "image"){
-		$( "#dialog" ).dialog( "open" );
-	}
+    console.log($.data(buttonDiv, BUTTON_NAME));
+	$( "#dialog" ).dialog( "open" );
     // Check if disabled
     if (editor.disabled || $(buttonDiv).attr(DISABLED) == DISABLED)
       return;
@@ -529,12 +530,11 @@
         target = target.children[0];
       value = target.innerHTML;
     }
-    else if (buttonName == "style"){
-	  console.log(target.tagName)
+    else if (buttonName == "style")
       value = "<" + target.tagName + ">";
-    }else if (buttonName == "color"){
+    else if (buttonName == "color")
       value = hex(target.style.backgroundColor);
-    }else if (buttonName == "highlight") {
+    else if (buttonName == "highlight") {
       value = hex(target.style.backgroundColor);
       if (ie) command = 'backcolor';
       else useCSS = true;
@@ -886,10 +886,8 @@
     	   * add by ynshen
     	   * 
     	   */
-    	  //console.log("e.keyCode:" + e.keyCode)
-    	  //console.log("getSelection:" + getSelection(editor))
-		console.log(getSelection(editor))
-		console.log(getSelection(editor).focusNode)
+    	  console.log(e.keyCode)
+    	  console.log(getSelection(editor))
         refreshButtons(editor);
       });
 
