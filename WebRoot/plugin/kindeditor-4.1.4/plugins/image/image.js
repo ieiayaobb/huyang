@@ -96,7 +96,7 @@ KindEditor.plugin('image', function(K) {
 							'<select>',
 								'<option>请选择</option>',
 								'<option>大坝压力图</option>',
-								'<option>地震数据图</option>',
+								//'<option>地震数据图</option>',
 							'</select>',
 						'</div>',
 					'</div>',
@@ -270,7 +270,7 @@ KindEditor.plugin('image', function(K) {
 						
 						$.ajax({
 							url : "http://localhost:8088/Server/XML/GetPictureWithData",
-							type : "post",
+							type : "POST",
 							data : requestXML,
 							success : function(data){
 								url = $(data).find("GetPictureWithDataResp").find("pictureData").find("url").text();
